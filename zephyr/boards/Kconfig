@@ -150,3 +150,5 @@ config BOARD_HAS_TIMING_FUNCTIONS
 	help
 	  Should be selected if board provides custom method for retrieving
 	  timestamps and cycle count.
+
+source "boards/ansilic/as32x601_evb/Kconfig.as32x601_evb"

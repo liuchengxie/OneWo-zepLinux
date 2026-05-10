@@ -1,0 +1,1 @@
+add_subdirectory_ifdef(CONFIG_SOC_SERIES_AS32X601 as32x601)

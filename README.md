@@ -113,9 +113,6 @@ west build -b -b rocket_pi/stm32f401xe zephyr/tests/kernel/sched/schedule_api
 | 信号与定时器 | 8 | signal, kill, alarm, timer_create, sleep, usleep, nanosleep, timer_settime |
 | 内存管理 | 3 | malloc, realloc, free |
 | 设备管理 | 5 | open, close, read, write, ioctl |
-| 文件系统与目录 | 6 | stat, fstat, opendir, readdir, closedir, mkdir |
-| 文件描述符操作 | 4 | lseek, dup, dup2, fcntl |
-| 网络套接字 | 7 | socket, bind, listen, accept, connect, send, recv |
 | IPC 与环境 | 3 | pipe, getenv, getuid |
 | 时间与进程控制 | 4 | clock_gettime, wait, waitpid, posix_spawn |
 | I/O 多路复用 | 3 | select, poll, epoll |

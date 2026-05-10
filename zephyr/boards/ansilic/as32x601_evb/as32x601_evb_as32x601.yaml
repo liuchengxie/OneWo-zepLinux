@@ -1,0 +1,12 @@
+identifier: as32x601_evb/as32x601
+name: AS32X601_EVB_AS32X601
+vendor: ansilic
+arch: riscv
+ram: 256
+flash: 8192
+toolchain:
+  - zephyr
+testing:
+  ignore_tags:
+    - bluetooth
+    - net
