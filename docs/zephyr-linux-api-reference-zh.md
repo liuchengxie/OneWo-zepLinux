@@ -889,448 +889,10 @@ int ioctl(int fd, unsigned long request, ...);
 
 ---
 
-## 9. 文件系统与目录接口
 
-### 9.1 `stat`
+## 9. IPC 与环境接口
 
-**函数原型**
-```c
-#include <sys/stat.h>
-
-int stat(const char *pathname, struct stat *statbuf);
-```
-
-**功能描述**
-获取指定路径对象的状态信息，例如文件大小、类型等。
-
-**输入参数定义**
-- `pathname`：目标文件或目录路径。
-- `statbuf`：状态信息输出缓冲区。
-
-**输出参数定义**
-- `statbuf`：成功时写入目标对象状态信息。
-
-**返回值定义**
-- `0`：成功。
-- `-1`：失败。
-
----
-
-### 9.2 `fstat`
-
-**函数原型**
-```c
-#include <sys/stat.h>
-
-int fstat(int fd, struct stat *statbuf);
-```
-
-**功能描述**
-获取指定文件描述符关联对象的状态信息。
-
-**输入参数定义**
-- `fd`：目标文件描述符。
-- `statbuf`：状态信息输出缓冲区。
-
-**输出参数定义**
-- `statbuf`：成功时写入状态信息。
-
-**返回值定义**
-- `0`：成功。
-- `-1`：失败。
-
----
-
-### 9.3 `opendir`
-
-**函数原型**
-```c
-#include <dirent.h>
-
-DIR *opendir(const char *name);
-```
-
-**功能描述**
-打开目录流，以便后续遍历目录项。
-
-**输入参数定义**
-- `name`：目录路径。
-
-**输出参数定义**
-- 无。
-
-**返回值定义**
-- 非 `NULL`：成功，返回目录流对象。
-- `NULL`：失败。
-
----
-
-### 9.4 `readdir`
-
-**函数原型**
-```c
-#include <dirent.h>
-
-struct dirent *readdir(DIR *dirp);
-```
-
-**功能描述**
-读取目录流中的下一个目录项。
-
-**输入参数定义**
-- `dirp`：目录流对象。
-
-**输出参数定义**
-- 返回的 `struct dirent *`：指向当前目录项信息。
-
-**返回值定义**
-- 非 `NULL`：成功读取到目录项。
-- `NULL`：到达目录末尾或读取失败。
-
----
-
-### 9.5 `closedir`
-
-**函数原型**
-```c
-#include <dirent.h>
-
-int closedir(DIR *dirp);
-```
-
-**功能描述**
-关闭目录流并释放相关资源。
-
-**输入参数定义**
-- `dirp`：待关闭目录流。
-
-**输出参数定义**
-- 无。
-
-**返回值定义**
-- `0`：成功。
-- `-1`：失败。
-
----
-
-### 9.6 `mkdir`
-
-**函数原型**
-```c
-#include <sys/stat.h>
-
-int mkdir(const char *pathname, mode_t mode);
-```
-
-**功能描述**
-创建目录。
-
-**输入参数定义**
-- `pathname`：新目录路径。
-- `mode`：目录权限位。
-
-**输出参数定义**
-- 无。
-
-**返回值定义**
-- `0`：成功。
-- `-1`：失败。
-
----
-
-## 10. 文件描述符操作接口
-
-### 10.1 `lseek`
-
-**函数原型**
-```c
-#include <unistd.h>
-
-off_t lseek(int fd, off_t offset, int whence);
-```
-
-**功能描述**
-修改文件描述符的当前偏移位置，支持随机访问。
-
-**输入参数定义**
-- `fd`：目标文件描述符。
-- `offset`：偏移量。
-- `whence`：基准位置，如 `SEEK_SET`、`SEEK_CUR`、`SEEK_END`。
-
-**输出参数定义**
-- 无。
-
-**返回值定义**
-- 非负数：新的偏移位置。
-- `-1`：失败。
-
----
-
-### 10.2 `dup`
-
-**函数原型**
-```c
-#include <unistd.h>
-
-int dup(int oldfd);
-```
-
-**功能描述**
-复制一个已有文件描述符，返回新的描述符。
-
-**输入参数定义**
-- `oldfd`：原文件描述符。
-
-**输出参数定义**
-- 无。
-
-**返回值定义**
-- 非负数：新文件描述符。
-- `-1`：失败。
-
----
-
-### 10.3 `dup2`
-
-**函数原型**
-```c
-#include <unistd.h>
-
-int dup2(int oldfd, int newfd);
-```
-
-**功能描述**
-将已有文件描述符复制到指定编号的新描述符上。
-
-**输入参数定义**
-- `oldfd`：原文件描述符。
-- `newfd`：目标文件描述符编号。
-
-**输出参数定义**
-- 无。
-
-**返回值定义**
-- 成功时返回 `newfd`。
-- `-1`：失败。
-
----
-
-### 10.4 `fcntl`
-
-**函数原型**
-```c
-#include <fcntl.h>
-
-int fcntl(int fd, int cmd, ...);
-```
-
-**功能描述**
-执行文件描述符控制操作，例如读写标志设置、描述符复制等。
-
-**输入参数定义**
-- `fd`：目标文件描述符。
-- `cmd`：控制命令。
-- `...`：命令相关参数。
-
-**输出参数定义**
-- 命令相关。
-
-**返回值定义**
-- 成功时返回与命令相关的非错误值。
-- `-1`：失败。
-
----
-
-## 11. 网络套接字接口
-
-### 11.1 `socket`
-
-**函数原型**
-```c
-#include <sys/socket.h>
-
-int socket(int domain, int type, int protocol);
-```
-
-**功能描述**
-创建一个套接字通信端点。
-
-**输入参数定义**
-- `domain`：协议族。
-- `type`：套接字类型。
-- `protocol`：协议号。
-
-**输出参数定义**
-- 无。
-
-**返回值定义**
-- 非负数：套接字描述符。
-- `-1`：失败。
-
----
-
-### 11.2 `bind`
-
-**函数原型**
-```c
-#include <sys/socket.h>
-
-int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
-```
-
-**功能描述**
-为套接字绑定本地地址。
-
-**输入参数定义**
-- `sockfd`：套接字描述符。
-- `addr`：本地地址结构体指针。
-- `addrlen`：地址结构体长度。
-
-**输出参数定义**
-- 无。
-
-**返回值定义**
-- `0`：成功。
-- `-1`：失败。
-
----
-
-### 11.3 `listen`
-
-**函数原型**
-```c
-#include <sys/socket.h>
-
-int listen(int sockfd, int backlog);
-```
-
-**功能描述**
-将流式套接字设置为监听状态。
-
-**输入参数定义**
-- `sockfd`：套接字描述符。
-- `backlog`：等待连接队列长度。
-
-**输出参数定义**
-- 无。
-
-**返回值定义**
-- `0`：成功。
-- `-1`：失败。
-
----
-
-### 11.4 `accept`
-
-**函数原型**
-```c
-#include <sys/socket.h>
-
-int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
-```
-
-**功能描述**
-接受一个已到达的连接请求，并返回一个新的已连接套接字。
-
-**输入参数定义**
-- `sockfd`：监听套接字。
-- `addr`：用于接收对端地址的缓冲区；可为 `NULL`。
-- `addrlen`：输入时表示缓冲区大小，输出时表示实际地址长度。
-
-**输出参数定义**
-- `addr`：成功时写入对端地址。
-- `addrlen`：成功时写入地址实际长度。
-
-**返回值定义**
-- 非负数：新的已连接套接字描述符。
-- `-1`：失败。
-
----
-
-### 11.5 `connect`
-
-**函数原型**
-```c
-#include <sys/socket.h>
-
-int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
-```
-
-**功能描述**
-发起到远端地址的连接。
-
-**输入参数定义**
-- `sockfd`：套接字描述符。
-- `addr`：远端地址。
-- `addrlen`：地址长度。
-
-**输出参数定义**
-- 无。
-
-**返回值定义**
-- `0`：连接成功或请求发起成功。
-- `-1`：失败。
-
----
-
-### 11.6 `send`
-
-**函数原型**
-```c
-#include <sys/socket.h>
-
-ssize_t send(int sockfd, const void *buf, size_t len, int flags);
-```
-
-**功能描述**
-通过套接字发送数据。
-
-**输入参数定义**
-- `sockfd`：套接字描述符。
-- `buf`：待发送数据缓冲区。
-- `len`：待发送字节数。
-- `flags`：发送行为标志。
-
-**输出参数定义**
-- 无。
-
-**返回值定义**
-- 非负数：实际发送字节数。
-- `-1`：失败。
-
----
-
-### 11.7 `recv`
-
-**函数原型**
-```c
-#include <sys/socket.h>
-
-ssize_t recv(int sockfd, void *buf, size_t len, int flags);
-```
-
-**功能描述**
-从套接字接收数据。
-
-**输入参数定义**
-- `sockfd`：套接字描述符。
-- `buf`：接收缓冲区。
-- `len`：最多接收字节数。
-- `flags`：接收行为标志。
-
-**输出参数定义**
-- `buf`：成功时写入接收到的数据。
-
-**返回值定义**
-- 正数：实际接收字节数。
-- `0`：对端正常关闭连接。
-- `-1`：失败。
-
----
-
-## 12. IPC 与环境接口
-
-### 12.1 `pipe`
+### 9.1 `pipe`
 
 **函数原型**
 ```c
@@ -1355,7 +917,7 @@ int pipe(int pipefd[2]);
 
 ---
 
-### 12.2 `getenv`
+### 9.2 `getenv`
 
 **函数原型**
 ```c
@@ -1379,7 +941,7 @@ char *getenv(const char *name);
 
 ---
 
-### 12.3 `getuid`
+### 9.3 `getuid`
 
 **函数原型**
 ```c
@@ -1402,9 +964,9 @@ uid_t getuid(void);
 
 ---
 
-## 13. 时间与进程控制接口
+## 10. 时间与进程控制接口
 
-### 13.1 `clock_gettime`
+### 10.1 `clock_gettime`
 
 **函数原型**
 ```c
@@ -1429,7 +991,7 @@ int clock_gettime(clockid_t clockid, struct timespec *tp);
 
 ---
 
-### 13.2 `wait`
+### 10.2 `wait`
 
 **函数原型**
 ```c
@@ -1453,7 +1015,7 @@ pid_t wait(int *status);
 
 ---
 
-### 13.3 `waitpid`
+### 10.3 `waitpid`
 
 **函数原型**
 ```c
@@ -1480,7 +1042,7 @@ pid_t waitpid(pid_t pid, int *status, int options);
 
 ---
 
-### 13.4 `posix_spawn`
+### 10.4 `posix_spawn`
 
 **函数原型**
 ```c
@@ -1512,9 +1074,9 @@ int posix_spawn(pid_t *pid, const char *path,
 
 ---
 
-## 14. I/O 多路复用接口
+## 11. I/O 多路复用接口
 
-### 14.1 `select`
+### 11.1 `select`
 
 **函数原型**
 ```c
@@ -1546,7 +1108,7 @@ int select(int nfds, fd_set *readfds, fd_set *writefds,
 
 ---
 
-### 14.2 `poll`
+### 11.2 `poll`
 
 **函数原型**
 ```c
@@ -1573,7 +1135,7 @@ int poll(struct pollfd *fds, nfds_t nfds, int timeout);
 
 ---
 
-### 14.3 `epoll`
+### 11.3 `epoll`
 
 **函数原型**
 ```c
@@ -1608,7 +1170,7 @@ int epoll_wait(int epfd, struct epoll_event *events,
 
 ---
 
-## 15. 常见错误码说明
+## 12. 常见错误码说明
 
 | 错误码 | 含义 |
 |--------|------|
@@ -1623,7 +1185,7 @@ int epoll_wait(int epfd, struct epoll_event *events,
 | `EPERM` | 权限不足 |
 | `ESRCH` | 目标进程或线程不存在 |
 
-## 16. 文档说明
+## 13. 文档说明
 
 1. 本文档重点强调接口层定义，因此对每个接口优先说明“怎么调用、传什么、返回什么”。
 2. 对于更形式化的前置条件、后置条件、不变量与并发约束，可进一步参考：`ai/interface-specifications.md`。

@@ -1,0 +1,3 @@
+config BOARD_AS32X601_EVB
+	bool "AS32X601 EVB"
+	depends on SOC_AS32X601

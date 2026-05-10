@@ -1,0 +1,8 @@
+config SOC_FAMILY_ANSILIC
+	bool
+	select RISCV
+	select RISCV_PRIVILEGED
+
+if SOC_FAMILY_ANSILIC
+rsource "*/Kconfig"
+endif

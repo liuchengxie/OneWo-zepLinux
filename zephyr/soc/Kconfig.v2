@@ -37,3 +37,5 @@ config SOC_PART_NUMBER
 
 # Source all Kconfig HWMv2 from SoC roots.
 source "$(KCONFIG_BINARY_DIR)/soc/Kconfig.soc"
+
+osource "soc/ansilic/Kconfig"
