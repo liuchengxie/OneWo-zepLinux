@@ -186,6 +186,24 @@
 			status = "disabled";
 		};
 
+		adc0: adc@41001000 {
+			compatible = "ansilic,as32x601-adc";
+			reg = <0x41001000 0x1000>;
+			#io-channel-cells = <1>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "disabled";
+		};
+
+		adc1: adc@41002000 {
+			compatible = "ansilic,as32x601-adc";
+			reg = <0x41002000 0x1000>;
+			#io-channel-cells = <1>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "disabled";
+		};
+
 		qspi0: qspi@42100800 {
 			compatible = "ansilic,as32x601-qspi-nor";
 			reg = <0x42100800 0x1000>, <0x10000000 0x04000000>;

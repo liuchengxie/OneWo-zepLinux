@@ -5,6 +5,7 @@ zephyr_sources(
   ${WEST_TOPDIR}/modules/hal/ansilic/as32x601/Peripherals/src/as32x601_plic.c
   ${WEST_TOPDIR}/modules/hal/ansilic/as32x601/Peripherals/src/as32x601_core.c
   ${WEST_TOPDIR}/modules/hal/ansilic/as32x601/Peripherals/src/as32x601_smu.c
+  ${WEST_TOPDIR}/modules/hal/ansilic/as32x601/Peripherals/src/as32x601_adc.c
   ${WEST_TOPDIR}/modules/hal/ansilic/as32x601/Peripherals/src/as32x601_flash.c
   ${WEST_TOPDIR}/modules/hal/ansilic/as32x601/Peripherals/src/as32x601_gpio.c
   ${WEST_TOPDIR}/modules/hal/ansilic/as32x601/Peripherals/src/as32x601_usart.c
