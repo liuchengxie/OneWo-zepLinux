@@ -25,6 +25,10 @@
 #define AS32X601_GPIO_AF_IIC1    2U
 #define AS32X601_GPIO_AF_QSPI    1U   /* GPIO_AF_QSPI from vendor as32x601_gpio.h */
 #define AS32X601_GPIO_AF_MAC     2U   /* MAC MII alternate function */
+#define AS32X601_GPIO_AF_CAN0    2U   /* GPIO_AF_CAN0_M1 from vendor as32x601_gpio.h */
+#define AS32X601_GPIO_AF_CAN1    2U
+#define AS32X601_GPIO_AF_CAN2    2U
+#define AS32X601_GPIO_AF_CAN3    2U
 
 #define AS32X601_GPIO_DRIVE_4_5MA  0U
 #define AS32X601_GPIO_DRIVE_9MA    1U

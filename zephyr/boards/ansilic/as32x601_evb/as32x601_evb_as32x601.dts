@@ -139,3 +139,13 @@
 &mac {
 	status = "okay";
 };
+
+&canfd3 {
+	status = "okay";
+	pinctrl-0 = <&canfd3_default>;
+	pinctrl-names = "default";
+	bitrate = <500000>;
+	sample-point = <875>;
+	bitrate-data = <2000000>;
+	sample-point-data = <750>;
+};
